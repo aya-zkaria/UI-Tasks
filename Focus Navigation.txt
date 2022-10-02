@@ -1,0 +1,354 @@
+package MainMenu01;
+
+import java.util.Vector;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.EventQueue;
+
+public class focusNavigationDemo extends JFrame implements FocusListener, ActionListener, KeyListener, ItemListener  {
+    
+	JPanel Panel = new JPanel();
+	JButton b1 = new JButton("No. 1");
+	JButton b2 = new JButton("No. 2");
+	JButton b3 = new JButton("No. 3");
+	JButton b4 = new JButton("No. 4");
+	JButton b5 = new JButton("No. 5");
+	JButton b6 = new JButton("No. 6");
+	JButton b7 = new JButton("No. 7");
+	JButton b8 = new JButton("No. 8");
+	JToggleButton b9 = new JToggleButton("No. 9");
+
+	JPanel statePanel = new JPanel();
+	JLabel stateLabel = new JLabel("Focus");
+	JTextArea stateArea = new JTextArea(10,30);
+	JScrollPane StateScroll = new JScrollPane(stateArea);
+	
+	//JButton source;
+	
+	JFrame frame = new JFrame("Focus Navigation");
+	
+	public focusNavigationDemo() {
+		addKeyListener(this);
+		setFocusable(true);
+//		setFocusTraversalKeysEnabled(false);
+		
+		init();
+		
+	}
+	void init () {
+		
+		Panel.setLayout(new GridLayout (3,3,5,5));
+		frame.setLayout(new GridLayout (2,2,5,5));
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setSize (600,600);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		createUI();
+	}
+	void createUI() {
+		b1.addKeyListener(this);
+		b1.addFocusListener(this);
+		b1.setFocusable(true);
+//      b1.setFocusTraversalKeysEnabled(false);
+		b1.requestFocus();
+		b1.setToolTipText("NO.1");
+		
+		b2.addKeyListener(this);
+		b2.addFocusListener(this);
+		b2.requestFocusInWindow();
+		b2.setFocusable(true);
+//		b2.setFocusTraversalKeysEnabled(false);
+		b2.setToolTipText("NO.2");
+		
+		b3.addKeyListener(this);
+		b3.addFocusListener(this);
+		b3.setFocusable(true);
+//		b3.setFocusTraversalKeysEnabled(false);
+		b3.setToolTipText("NO.3");
+		
+		b4.addKeyListener(this);
+		b4.addFocusListener(this);
+		b4.setFocusable(true);
+//		b4.setFocusTraversalKeysEnabled(false);
+		b4.setToolTipText("NO.4");
+		
+		b5.addKeyListener(this);
+		b5.addFocusListener(this);
+		b5.setFocusable(true);
+		//b5.setEnabled(false);
+//		b5.setFocusTraversalKeysEnabled(false);
+		b5.setToolTipText("NO.5");
+		
+		b6.addKeyListener(this);
+		b6.addFocusListener(this);
+		b6.setFocusable(true);
+//		b6.setFocusTraversalKeysEnabled(false);
+		b6.setToolTipText("NO.6");
+		
+		b7.addKeyListener(this);
+		b7.addFocusListener(this);
+		b7.setFocusable(true);
+		b7.setFocusTraversalKeysEnabled(false);
+		b7.setToolTipText("NO.7");
+		
+		b8.addKeyListener(this);
+		b8.addFocusListener(this);
+		b8.setFocusable(true);
+		b8.setFocusTraversalKeysEnabled(false);
+		b8.setToolTipText("NO.8");
+		
+		b9.addKeyListener(this);
+		b9.addFocusListener(this);
+		b9.setFocusable(true);
+		b9.setFocusTraversalKeysEnabled(false);
+		b9.setToolTipText("NO.9");
+
+		stateArea.addKeyListener(this);
+		stateArea.addFocusListener(this);
+		stateArea.setFocusable(true);
+		stateArea.setFocusTraversalKeysEnabled(false);
+		
+		StateScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+		StateScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		int hpolicy = StateScroll.getHorizontalScrollBarPolicy();
+        int vpolicy = StateScroll.getVerticalScrollBarPolicy();
+		
+		setAction();
+		
+		Panel.add(b1);
+		Panel.add(b2);
+		Panel.add(b3);
+		Panel.add(b4);
+		Panel.add(b5);
+		Panel.add(b6);
+		Panel.add(b7);
+		Panel.add(b8);
+		Panel.add(b9);
+		
+		frame.add(Panel);
+        frame.add(statePanel);
+        
+        statePanel.add(stateLabel);
+        statePanel.add(stateArea);
+        statePanel.add(StateScroll);
+        statePanel.setOpaque(true);
+		
+	}
+
+	public static void main(String[] args){
+		new focusNavigationDemo();
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+       int keyCode = e.getKeyCode();
+
+        if (keyCode == KeyEvent.VK_UP){
+       	up((JButton)e.getSource());
+        }
+        if (keyCode == KeyEvent.VK_DOWN){
+       	down((JButton)e.getSource());
+        }
+        if (keyCode == KeyEvent.VK_LEFT){
+        	left((JButton)e.getSource());
+        }
+       if (keyCode == KeyEvent.VK_RIGHT){
+        	right((JButton)e.getSource());       }
+	
+	}
+	
+	void up(JButton source) {
+		
+		displayState("up: " +  source.getText());
+
+	    if(source == b1 || source == b2 || source == b3) { 
+			source.requestFocus();		}
+		if(source == b4) {
+			displayState("up: b4");
+			b1.requestFocus();
+		}
+		if(source == b5) {
+			b2.requestFocus();
+		}
+		if(source == b6) {
+			b3.requestFocus();
+		}
+		if(source == b7) {
+			b4.requestFocus();
+		}
+		
+		/*if(b8.isRequestFocusEnabled()) {
+			if(b5.isEnabled()) {
+				b5.requestFocus();
+			}else if(!b5.isEnabled()) {
+				b2.requestFocus();
+			}
+			
+		}
+		if(stateArea.isRequestFocusEnabled()) {
+			b8.requestFocus();
+		}
+		else {
+			b6.requestFocus();
+		}*/
+		
+	}
+	void down(JButton source) {
+		
+		displayState("Down: " +  source.getText());
+		
+		    if(source == b7 || source == b8) {
+			    stateArea.requestFocus();
+			}
+			if(source == b4) {
+				b7.requestFocus();
+			}
+			if(source == b5) {
+				b8.requestFocus();
+			}
+			if(source == b6) {
+				b9.requestFocus();
+			}
+			if(source == b1) {
+				b4.requestFocus();
+			}
+		/*	if(source == b2) {
+				if(b5.isEnabled()) {
+					b5.requestFocus();
+				}else {
+					b8.requestFocus();
+				}
+				
+			}
+			if(source == b3) {
+				b6.requestFocus();
+			}
+			else {
+				stateArea.requestFocus();
+			}*/
+			
+		}
+	void left(JButton source) {
+		
+		displayState("Left: " +  source.getText());
+		
+		if(source == b1 || source == b4 || source == b7) {
+			source.requestFocus();
+			}
+			if(source == b2) {
+				b1.requestFocus();
+			}
+			if(source == b5) {
+				b4.requestFocus();
+			}
+			if(source == b8) {
+				b7.requestFocus();
+			}
+			if(source == b3) {
+				b2.requestFocus();
+			}
+		/*	if(source == b6) {
+				if(b5.isEnabled()) {
+					b5.requestFocus();
+				}else {
+					b4.requestFocus();
+				}
+			}
+			else {
+				b8.requestFocus();
+			}*/
+	}
+	void right(JButton source) {
+		
+		displayState("Right: " +  source.getText());
+		
+		if(source == b3 || source == b6) {
+			source.requestFocus();
+			}
+			if(source == b2) {
+				b3.requestFocus();
+			}
+			if(source == b5) {
+				b6.requestFocus();
+			}
+			if(source == b8) {
+				b9.requestFocus();
+			}
+			if(source == b1) {
+				b2.requestFocus();
+			}
+		  /*  if(source == b4) {
+				if(b5.isEnabled()) {
+					b5.requestFocus();
+				}else {
+					b6.requestFocus();
+				}
+			}
+			else {
+				source.requestFocus();
+			}*/
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+        // source = (JButton) e.getSource();
+        // source.addActionListener(this);
+	}
+
+	public void setAction() {
+	    b9.addItemListener(this); 
+	    
+	}
+	
+	@Override
+	public void focusGained(FocusEvent e) {
+		//displayState("Focus Gained : ", e);		
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		//displayState("Focus Lost : ", e);
+		
+	}
+	
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		 if(b9.isSelected()) {
+				
+				b9.setText("Click to Enable Button5");
+				b5.setEnabled(false);
+			}
+			else if(b9.getText() == "Click to Enable Button5"){
+				
+				b9.setText("No. 9");
+				b5.setEnabled(true);
+			}		
+	}
+	void displayState(String prefix, FocusEvent e) {
+		
+		stateArea.append(prefix + e.getComponent().getClass().getComponentType().getName()+  "\n" );
+		
+	}
+	
+	void displayState(String prefix) {
+		
+		stateArea.append(prefix + "\n" );
+		
+	}
+	 
+}
