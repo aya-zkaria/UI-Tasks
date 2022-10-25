@@ -1,0 +1,45 @@
+package MainMenu01;
+
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+
+public class Utf8_ASCIIexample {
+
+	public Utf8_ASCIIexample() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static void main(String[] args) {
+		String serbianString = "Šta radiš?"; // What are you doing?
+		String germanString = "Wie heißen Sie?"; // What's your name?
+		String japaneseString = "よろしくお願いします"; // Pleased to meet you.
+
+		String asciiSerbianString = new String(serbianString.getBytes(), StandardCharsets.US_ASCII);
+		String asciigermanString = new String(germanString.getBytes(), StandardCharsets.US_ASCII);
+		String asciijapaneseString = new String(japaneseString.getBytes(), StandardCharsets.US_ASCII);
+
+		System.out.println(asciiSerbianString);
+		System.out.println(asciigermanString);
+		System.out.println(asciijapaneseString);
+
+		System.out.println("--------separator between the two methods--------");
+
+		String serbianString2 = "Šta radiš?"; // What are you doing?
+		ByteBuffer byteBuffer1 = StandardCharsets.UTF_8.encode(serbianString2);
+
+		String utf8String2 = new String(byteBuffer1.array(), StandardCharsets.UTF_8);
+		System.out.println(utf8String2);
+
+		String germanString2 = "Wie heißen Sie?"; // What's your name?
+		ByteBuffer byteBuffer2 = StandardCharsets.UTF_8.encode(germanString2);
+
+		String utf8String1 = new String(byteBuffer2.array(), StandardCharsets.UTF_8);
+		System.out.println(utf8String1);
+
+		String japaneseString2 = "よろしくお願いします"; // Pleased to meet you.
+		ByteBuffer byteBuffer = StandardCharsets.UTF_8.encode(japaneseString2);
+
+		String utf8String = new String(byteBuffer.array(), StandardCharsets.UTF_8);
+		System.out.println(utf8String);
+	}
+}
